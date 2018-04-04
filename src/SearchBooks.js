@@ -77,6 +77,7 @@ class SearchBooks extends Component {
             <ol className="books-grid">
               {
                 books.map((book) => (
+                  // <li key={book.id}>{book.name}</li>
                   <li key={book.id}>
                     <ListBook book={book} onMoveBook={this.props.onMoveBook} />
                   </li>

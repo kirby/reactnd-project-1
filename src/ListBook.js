@@ -18,12 +18,18 @@ class ListBook extends Component {
 
     const { book } = this.props;
 
+    console.log('ListBook: ' + book.title)
+
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193,
-            backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}>
-          </div>
+          {
+            book.hasOwnProperty('imageLinks') && (
+              <div className="book-cover" style={{ width: 128, height: 193,
+                backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}>
+              </div>
+            )
+          }
           <div className="book-shelf-changer">
             <select onChange={this.handleSubmit}>
               <option value="none" disabled>Move to...</option>
@@ -35,9 +41,13 @@ class ListBook extends Component {
           </div>
         </div>
         <div className="book-title">{book.title}</div>
-        {book.authors.map((author) => (
-          <div key={author} className="book-authors">{author}</div>
-        ))}
+        {
+          book.hasOwnProperty('authors') && (
+            book.authors.map((author) => (
+              <div key={author} className="book-authors">{author}</div>
+            ))
+          )
+        }
       </div>
     )
 

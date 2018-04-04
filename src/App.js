@@ -14,7 +14,7 @@ class BooksApp extends Component {
   componentDidMount() {
     BooksAPI.getAll()
       .then((books) => {
-        // console.log(books)
+        console.log('componentDidMount\n' + books)
         this.setState(() => ({
           books
         }))
@@ -25,10 +25,16 @@ class BooksApp extends Component {
     console.log('moveBookToShelf: ' + book.title + ', ' + shelf)
     BooksAPI.update(book, shelf)
       .then((books) => {
-        console.log(books)
-        this.setState(() => ({
-          books
-        }))
+        // console.log(books)
+        // this.setState(() => ({
+        //   books
+        // }))
+        BooksAPI.getAll()
+          .then((books) => {
+            this.setState(() => ({
+              books
+            }))
+          })
       })
   }
 

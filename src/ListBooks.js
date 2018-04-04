@@ -14,6 +14,7 @@ class ListBooks extends Component {
 
     const { books, onMoveBook } = this.props;
 
+    // TODO: iterate over shelves
     const shelves = [
       { category: 'currentlyReading', name: 'Currently Reading' },
       { category: 'wantToRead', name: 'Want To Read' },
@@ -39,6 +40,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
+
+            {/* // TODO: iterate over shelves */}
+
             <div className="bookshelf">
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
