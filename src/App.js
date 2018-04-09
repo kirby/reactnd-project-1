@@ -21,20 +21,17 @@ class BooksApp extends Component {
       })
   }
 
-  moveBookToShelf(book, shelf) {
-    console.log('moveBookToShelf: ' + book.title + ', ' + shelf)
+  updateBook = (book, shelf) => {
+
+    console.log('moveBookToShelf: ' + book.id + ', ' + book.title + ', ' + shelf)
+
     BooksAPI.update(book, shelf)
       .then((books) => {
-        // console.log(books)
-        // this.setState(() => ({
-        //   books
-        // }))
-        BooksAPI.getAll()
-          .then((books) => {
-            this.setState(() => ({
-              books
-            }))
-          })
+
+      }).then(() => {
+        BooksAPI.getAll().then(books => {
+          this.setState({ books })
+        })
       })
   }
 
@@ -45,12 +42,14 @@ class BooksApp extends Component {
         <Route exact path='/' render={() => (
           <ListBooks
             books={this.state.books}
-            onMoveBook={this.moveBookToShelf}
+            updateBook={this.updateBook}
           />
         )} />
 
         <Route path='/search' render={() => (
-          <SearchBooks onMoveBook={this.moveBookToShelf}/>
+          <SearchBooks
+            books={this.state.books}
+            updateBook={this.updateBook}/>
         )} />
 
       </div>

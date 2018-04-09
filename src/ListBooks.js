@@ -7,12 +7,12 @@ class ListBooks extends Component {
 
   static propTypes = {
     books: PropTypes.array.isRequired,
-    onMoveBook: PropTypes.func.isRequired
+    updateBook: PropTypes.func.isRequired
   }
 
   render() {
 
-    const { books, onMoveBook } = this.props;
+    const { books, updateBook } = this.props;
 
     // TODO: iterate over shelves
     const shelves = [
@@ -49,7 +49,7 @@ class ListBooks extends Component {
                 <ol className="books-grid">
                   {currentlyReading.map((book) => (
                     <li key={book.id}>
-                      <ListBook book={book} onMoveBook={onMoveBook}/>
+                      <ListBook book={book} updateBook={updateBook}/>
                     </li>
                   ))}
                 </ol>
@@ -62,7 +62,7 @@ class ListBooks extends Component {
                 <ol className="books-grid">
                   {wantToRead.map((book) => (
                     <li key={book.id}>
-                      <ListBook book={book} onMoveBook={onMoveBook} />
+                      <ListBook book={book} updateBook={updateBook} />
                     </li>
                   ))}
                 </ol>
@@ -74,7 +74,7 @@ class ListBooks extends Component {
                 <ol className="books-grid">
                   {read.map((book) => (
                     <li key={book.id}>
-                      <ListBook book={book} onMoveBook={onMoveBook} />
+                      <ListBook book={book} updateBook={updateBook} />
                     </li>
                   ))}
                 </ol>

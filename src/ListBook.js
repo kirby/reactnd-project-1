@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import * as BooksAPI from './BooksAPI'
+
 
 class ListBook extends Component {
 
   static propTypes = {
-    onMoveBook: PropTypes.func.isRequired
+    updateBook: PropTypes.func.isRequired
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    if (this.props.onMoveBook) {
-      this.props.onMoveBook(this.props.book, e.target.value)
+    if (this.props.updateBook) {
+      this.props.updateBook(this.props.book, e.target.value)
     }
   }
 
@@ -31,7 +33,7 @@ class ListBook extends Component {
             )
           }
           <div className="book-shelf-changer">
-            <select onChange={this.handleSubmit}>
+            <select value={book.shelf} onChange={this.handleSubmit}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>

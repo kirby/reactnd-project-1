@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 class SearchBooks extends Component {
 
   static propTypes = {
-    onMoveBook: PropTypes.func.isRequired
+    books: PropTypes.array.isRequired,
+    updateBook: PropTypes.func.isRequired
   }
 
   state = {
@@ -79,7 +80,7 @@ class SearchBooks extends Component {
                 books.map((book) => (
                   // <li key={book.id}>{book.name}</li>
                   <li key={book.id}>
-                    <ListBook book={book} onMoveBook={this.props.onMoveBook} />
+                    <ListBook book={book} updateBook={this.props.updateBook} />
                   </li>
                 ))
               }
