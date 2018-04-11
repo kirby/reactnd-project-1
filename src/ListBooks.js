@@ -14,13 +14,6 @@ class ListBooks extends Component {
 
     const { books, updateBook } = this.props;
 
-    // TODO: iterate over shelves
-    const shelves = [
-      { category: 'currentlyReading', name: 'Currently Reading' },
-      { category: 'wantToRead', name: 'Want To Read' },
-      { category: 'read', name: 'Read' },
-    ]
-
     const currentlyReading = books.filter((book) => (
       book.shelf.toLowerCase() === 'currentlyReading'.toLowerCase()
     ))

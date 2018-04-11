@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as BooksAPI from './BooksAPI'
-
 
 class ListBook extends Component {
 
@@ -19,8 +17,6 @@ class ListBook extends Component {
   render() {
 
     const { book } = this.props;
-
-    console.log('ListBook: ' + book.title)
 
     return(
       <div className="book">

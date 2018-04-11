@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import ListBook from './ListBook'
 import PropTypes from 'prop-types';
@@ -12,84 +12,73 @@ class SearchBooks extends Component {
   }
 
   state = {
-    books: []
+    searchedBooks: []
   }
 
   updateQuery = (query) => {
 
-    console.log('query = ' + query + ' [' + query.length + '] ')
-
     if (query.length > 0) {
-      BooksAPI.search(query)
-        .then((books) => {
-          console.log(books)
-          // check for error
-          if (books.error) {
-            console.log(books.error)
-            this.setState(() => ({
-              books: []
-            }))
-          }
+      BooksAPI.search(query).then((books) => {
+        // check for error
+        if (books.error) {
+          this.setState(() => ({searchedBooks: []}))
+        }
 
-          // check books.length
-          if (books && books.length > 0) {
-            console.log('books.length = ' + books.length)
-            this.setState(() => ({
-              books
-            }))
-          }
+        // check books.length
+        if (books && books.length > 0) {
+          // const booksWithShelf = this.booksWithShelf(books)
 
-        })
+          this.setState(() => (
+            {searchedBooks: this.booksWithShelf(books)})
+          )
+        }
+
+      })
     } else {
-      this.setState(() => ({
-        books: []
-      }))
+      this.setState(() => ({searchedBooks: []}))
     }
   }
 
-  clearQuery = () => {
-    this.updateQuery('')
+  booksWithShelf = (searchedBooks) => {
+    const {books} = this.props;
+    searchedBooks.forEach(searchedBook => {
+      const match = books.filter(book => book.id === searchedBook.id)
+      if (match instanceof Array && match.length > 0) {
+        searchedBook.shelf = match[0].shelf
+      } else {
+        searchedBook.shelf = 'none'
+      }
+    })
+
+    return searchedBooks
   }
 
   render() {
 
-    const { books } = this.state;
-    console.log('books: ' + books)
+    const {searchedBooks} = this.state;
 
-    return(
-      <div className="search-books">
-        <div className="search-books-bar">
-          <Link
-            className='close-search'
-            to='/'>
-            Close
-          </Link>
-          <div className="search-books-input-wrapper">
-            <input
-              type="text"
-              placeholder="Search by title or author"
-              onChange={(event) => this.updateQuery(event.target.value)}
-            />
-
-          </div>
+    return (<div className="search-books">
+      <div className="search-books-bar">
+        <Link className='close-search' to='/'>
+          Close
+        </Link>
+        <div className="search-books-input-wrapper">
+          <input type="text" placeholder="Search by title or author" onChange={(event) => this.updateQuery(event.target.value)}/>
         </div>
-        {books.length !== 0 && (
-          <div className="search-books-results">
-            <ol className="books-grid">
-              {
-                books.map((book) => (
-                  // <li key={book.id}>{book.name}</li>
-                  <li key={book.id}>
-                    <ListBook book={book} updateBook={this.props.updateBook} />
-                  </li>
-                ))
-              }
-            </ol>
-          </div>
-        )}
-
       </div>
-    )
+      {
+        searchedBooks.length !== 0 && (<div className="search-books-results">
+          <ol className="books-grid">
+            {
+              searchedBooks.map((book) => (<li key={book.id}>
+                <ListBook book={book} updateBook={this.props.updateBook}/>
+              </li>))
+            }
+          </ol>
+        </div>)
+      }
+
+    </div>)
   }
 }
 
