@@ -12,16 +12,18 @@ class SearchBooks extends Component {
   }
 
   state = {
+    query: '',
     searchedBooks: []
   }
 
   updateQuery = (query) => {
 
     if (query.length > 0) {
+
       BooksAPI.search(query).then((books) => {
         // check for error
         if (books.error) {
-          this.setState(() => ({searchedBooks: []}))
+          this.setState(() => ({query: query, searchedBooks: []}))
         }
 
         // check books.length
@@ -29,13 +31,13 @@ class SearchBooks extends Component {
           // const booksWithShelf = this.booksWithShelf(books)
 
           this.setState(() => (
-            {searchedBooks: this.booksWithShelf(books)})
+            {query: query, searchedBooks: this.booksWithShelf(books)})
           )
         }
 
       })
     } else {
-      this.setState(() => ({searchedBooks: []}))
+      this.setState(() => ({query: '', searchedBooks: []}))
     }
   }
 
@@ -53,9 +55,22 @@ class SearchBooks extends Component {
     return searchedBooks
   }
 
+  componentWillUpdate = (nextProps, nextState) => {
+      // perform any preparations for an upcoming update
+      console.log('componentWillUpdate')
+      console.log('nextState.query = ' + nextState.query)
+      // nextProps.books.forEach(book => {
+      //   console.log('\t' + book.title + ', ' + book.shelf)
+      // })
+      //
+      // nextState.searchedBooks.forEach(book => {
+      //   console.log('\t' + book.title + ', ' + book.shelf)
+      // })
+  }
+
   render() {
 
-    const {searchedBooks} = this.state;
+    const {searchedBooks} = this.state; // should this be query?
 
     return (<div className="search-books">
       <div className="search-books-bar">
