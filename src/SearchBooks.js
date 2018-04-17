@@ -28,8 +28,6 @@ class SearchBooks extends Component {
 
         // check books.length
         if (books && books.length > 0) {
-          // const booksWithShelf = this.booksWithShelf(books)
-
           this.setState(() => (
             {query: query, searchedBooks: this.booksWithShelf(books)})
           )
@@ -42,7 +40,7 @@ class SearchBooks extends Component {
   }
 
   booksWithShelf = (searchedBooks) => {
-    const {books} = this.props;
+    const { books } = this.props;
     searchedBooks.forEach(searchedBook => {
       const match = books.filter(book => book.id === searchedBook.id)
       if (match instanceof Array && match.length > 0) {

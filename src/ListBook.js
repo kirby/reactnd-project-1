@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class ListBook extends Component {
 
   static propTypes = {
+    book: PropTypes.object.isRequired,
     updateBook: PropTypes.func.isRequired
   }
 
@@ -11,6 +12,7 @@ class ListBook extends Component {
     e.preventDefault()
     if (this.props.updateBook) {
       this.props.updateBook(this.props.book, e.target.value)
+      this.props.book.shelf = e.target.value
     }
   }
 
@@ -30,7 +32,7 @@ class ListBook extends Component {
           }
           <div className="book-shelf-changer">
             <select value={book.shelf} onChange={this.handleSubmit}>
-              <option value="none" disabled>Move to...</option>
+              <option disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
