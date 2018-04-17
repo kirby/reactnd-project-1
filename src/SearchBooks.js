@@ -53,19 +53,6 @@ class SearchBooks extends Component {
     return searchedBooks
   }
 
-  componentWillUpdate = (nextProps, nextState) => {
-      // perform any preparations for an upcoming update
-      console.log('componentWillUpdate')
-      console.log('nextState.query = ' + nextState.query)
-      // nextProps.books.forEach(book => {
-      //   console.log('\t' + book.title + ', ' + book.shelf)
-      // })
-      //
-      // nextState.searchedBooks.forEach(book => {
-      //   console.log('\t' + book.title + ', ' + book.shelf)
-      // })
-  }
-
   render() {
 
     const {searchedBooks} = this.state; // should this be query?
